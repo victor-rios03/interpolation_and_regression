@@ -1,3 +1,0 @@
-C:/Users/03vic/CLionProjects/interpolation_and_regression/cmake-build-debug/CMakeFiles/interpolation_and_regression.dir
-C:/Users/03vic/CLionProjects/interpolation_and_regression/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/03vic/CLionProjects/interpolation_and_regression/cmake-build-debug/CMakeFiles/rebuild_cache.dir
