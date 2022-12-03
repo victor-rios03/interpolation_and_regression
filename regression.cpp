@@ -13,7 +13,6 @@ double x_summatory(int k, const vector<Points>& points) {
     double sum = 0;
 
     for(int i=0; i<m; i++) {
-        cout << points[i].x << endl;
         sum += pow(points[i].x, k);
     }
 

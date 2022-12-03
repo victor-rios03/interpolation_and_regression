@@ -22,8 +22,6 @@ struct Points {    // points' coordinates given by points.dat
 };
 
 
-
-
 void linear_interpolation(const vector<Points>&, double);
 
 void lagrange_interpolation(const vector<Points>&, double);
