@@ -2,9 +2,8 @@
 // Created by 03vic on 11/30/2022.
 //
 
-#include "interpolation.h"
+#include "headers.h"
 
-using namespace std;
 
 void linear_interpolation(const vector<Points>& points, double x) {
     double y;

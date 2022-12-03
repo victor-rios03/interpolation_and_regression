@@ -61,6 +61,12 @@ build CMakeFiles/interpolation_and_regression.dir/interpolation.cpp.obj: CXX_COM
   OBJECT_DIR = CMakeFiles\interpolation_and_regression.dir
   OBJECT_FILE_DIR = CMakeFiles\interpolation_and_regression.dir
 
+build CMakeFiles/interpolation_and_regression.dir/regression.cpp.obj: CXX_COMPILER__interpolation_and_regression_Debug C$:/Users/03vic/CLionProjects/interpolation_and_regression/regression.cpp || cmake_object_order_depends_target_interpolation_and_regression
+  DEP_FILE = CMakeFiles\interpolation_and_regression.dir\regression.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  OBJECT_DIR = CMakeFiles\interpolation_and_regression.dir
+  OBJECT_FILE_DIR = CMakeFiles\interpolation_and_regression.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target interpolation_and_regression
@@ -69,7 +75,7 @@ build CMakeFiles/interpolation_and_regression.dir/interpolation.cpp.obj: CXX_COM
 #############################################
 # Link the executable interpolation_and_regression.exe
 
-build interpolation_and_regression.exe: CXX_EXECUTABLE_LINKER__interpolation_and_regression_Debug CMakeFiles/interpolation_and_regression.dir/main.cpp.obj CMakeFiles/interpolation_and_regression.dir/interpolation.cpp.obj
+build interpolation_and_regression.exe: CXX_EXECUTABLE_LINKER__interpolation_and_regression_Debug CMakeFiles/interpolation_and_regression.dir/main.cpp.obj CMakeFiles/interpolation_and_regression.dir/interpolation.cpp.obj CMakeFiles/interpolation_and_regression.dir/regression.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\interpolation_and_regression.dir
