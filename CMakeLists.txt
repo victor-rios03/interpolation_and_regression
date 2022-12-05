@@ -3,4 +3,9 @@ project(interpolation_and_regression)
 
 set(CMAKE_CXX_STANDARD 14)
 
+set(EIGEN_DIR "C:/Users/03vic/Desktop/eigen-3.4.0")
+include_directories(${EIGEN_DIR})
+
 add_executable(interpolation_and_regression main.cpp interpolation.cpp regression.cpp headers.h)
+
+

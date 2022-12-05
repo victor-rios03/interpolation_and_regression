@@ -7,14 +7,12 @@
 
 void linear_interpolation(const vector<Points>& points, double x) {
     double y;
-    double m;
 
     for (int i=0; i<points.size()-1; i++) {
         if (x > points[i].x && x < points[i+1].x ){
             cout << "El punto esta entre, (";
             cout << points[i].x << ", " << points[i+1].x << ')' << endl;
-            m = (points[i+1].y - points[i].y) /  (points[i+1].x - points[i].x);
-            y = points[i].y + (x - points[i].x) * m;
+            y = points[i].y + (x - points[i].x) * (points[i+1].y - points[i].y) /  (points[i+1].x - points[i].x);
             cout << "Usando interpolacion lineal el punto: " << x << ", esta en :"<< y << endl;
             return;
         }

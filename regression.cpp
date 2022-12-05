@@ -3,24 +3,26 @@
 //
 
 #include "headers.h"
+#include <Eigen/Dense> // Libreria para resolver sistemas de ecuaciones, se espera que el usuario la agregue
 
-int n;
-int m;
+using Eigen::MatrixXd;
+using Eigen::Matrix2d;
+using Eigen::Vector2d;
+using Eigen::VectorXd;
+
 const char separator = ' ';
 const int numWidth = 12;
 
-double x_summatory(int k, const vector<Points>& points) {
+double x_summatory(int k, const vector<Points>& points, int m) {
     double sum = 0;
 
-    for(int i=0; i<m; i++) {
-        cout << points[i].x << endl;
+    for(int i=0; i<m; i++)
         sum += pow(points[i].x, k);
-    }
 
     return sum;
 }
 
-double y_summatory(int k, const vector<Points>& points) {
+double y_summatory(int k, const vector<Points>& points, int m) {
     double sum = 0;
 
     for(int i=0; i<m; i++)
@@ -30,44 +32,23 @@ double y_summatory(int k, const vector<Points>& points) {
 }
 
 void polynomial_regression(const vector<Points>& points, double user_x) {
-    m = (int) points.size(); // numero de puntos
-    double temp_val;
-    double x[n];
+    int m = (int) points.size(); // numero de puntos
+    int n;
 
     cout << "Grado del polinomio: " << endl;
     cin >> n;
-    double a[n][n+1];
+
+    MatrixXd A(n, n);
+    VectorXd b(n);
 
     for (int i=0; i<n; i++) { // recorre los puntos
         for (int j=0; j<n; j++) { // recorre el grado del polinomio
-            a[i][j] = x_summatory(i+j, points);
+            A(i,j) = x_summatory(i+j, points, m); // Define los coeficientes del sistema
         }
-        a[i][n] = y_summatory(i, points);
+        b[i]= y_summatory(i, points, m); // Define los terminos independientes del sistema
     }
 
-    for (int i=0; i<n; i++) {
-        for (int j=0; j<n+1; j++) {
-            cout << left << setw(numWidth) << setfill(separator) << a[i][j];
-        }
-        cout << endl;
-    }
-
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = i + 1; j < n; j++) {
-            temp_val = a[j][i] / a[i][i];
-            for (int k = 0; k < n+1; k++) {
-                a[j][k] = a[j][k] - (temp_val * a[i][k]);
-            }
-        }
-    }
-
-    for (int i = n ; i >= 1; i--) {
-        x[i - 1] = a[i - 1][n];
-        for (int j = i + 1; j <= n; j++) {
-            x[i - 1] = x[i - 1] - a[i-1][j-1] * x[j-1];
-        }
-        x[i-1] = x[i - 1] / a[i-1][i-1];
-    }
+    VectorXd x = A.colPivHouseholderQr().solve(b);
 
     cout << "Polinomio que mas se acerca a los puntos: ";
     cout << "y(x) = ";
@@ -87,44 +68,27 @@ void polynomial_regression(const vector<Points>& points, double user_x) {
 }
 
 void exponential_regression(const vector<Points>& points, double user_x) {
-    m = (int) points.size(); // numero de puntos
-    vector<Points> exp_points;
-    exp_points = points;
-    double a[2][3];
-    double x[2];
+    int m = (int) points.size(); // numero de puntos
+    vector<Points> exp_points = points;
+    Matrix2d A;
+    Vector2d b;
+    double X;
 
-    for(auto & exp_point : exp_points)
+    for(auto & exp_point : exp_points)  // cambio de variable y = ln(y)
         exp_point.y = log(exp_point.y);
-/*
-    for (auto & point : exp_points)
-        cout << point.x << ' ' << point.y << endl;
-*/
+
     for (int i=0; i<2; i++) { // recorre los puntos
         for (int j=0; j<2; j++) { // recorre el grado del polinomio
-            a[i][j] = x_summatory(i+j, exp_points);
+            A(i,j) = x_summatory(i+j, exp_points, m); // Define los coeficientes del sistema
         }
-        a[i][2] = y_summatory(i, exp_points);
+        b(i) = y_summatory(i, exp_points, m); // Define los terminos independientes del sistema
     }
 
- /*
-    for (int i=0; i<2; i++) {
-        for (int j=0; j<3; j++) {
-            cout << left << setw(numWidth) << setfill(separator) << a[i][j];
-        }
-        cout << endl;
-    }
-    */
-
-    double det;
-    double a_det;
-    double b_det;
-
-    det = a[0][0] * a[1][1] - (a[1][0] * a[0][1]);
-    a_det = a[0][2] * a[1][1] - (a[1][2] * a[0][1]);
-    b_det = a[0][0] * a[1][2] - (a[1][0] * a[0][2]);
-
-    x[0] = exp(a_det/det);
-    x[1] = exp(b_det/det);
+    Vector2d x = A.colPivHouseholderQr().solve(b); // Resuelve el sistema
 
     cout << "y = " << x[0] << '(' << x[1] << ')' << "^x" << endl;
+    X = x[0] * pow(x[1],user_x); // Devuelve el cambio de variable
+    cout << "Evaluado en x = " << user_x << ',' << endl;
+    cout << "y(" << user_x << ") = " << X << endl;
+
 }
