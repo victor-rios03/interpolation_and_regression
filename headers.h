@@ -21,10 +21,10 @@ struct Points {    // points' coordinates given by points.dat
     double y;
 };
 
-
 void linear_interpolation(const vector<Points>&, double);
 
 void lagrange_interpolation(const vector<Points>&, double);
 
 void polynomial_regression(const vector<Points>&, double);
+
 void exponential_regression(const vector<Points>&, double);

@@ -4,7 +4,6 @@
 
 #include "headers.h"
 
-int n;
 int m;
 const char separator = ' ';
 const int numWidth = 12;
@@ -12,9 +11,8 @@ const int numWidth = 12;
 double x_summatory(int k, const vector<Points>& points) {
     double sum = 0;
 
-    for(int i=0; i<m; i++) {
+    for(int i=0; i<m; i++)
         sum += pow(points[i].x, k);
-    }
 
     return sum;
 }
@@ -30,12 +28,13 @@ double y_summatory(int k, const vector<Points>& points) {
 
 void polynomial_regression(const vector<Points>& points, double user_x) {
     m = (int) points.size(); // numero de puntos
+    int n;
     double temp_val;
-    double x[n];
 
     cout << "Grado del polinomio: " << endl;
     cin >> n;
     double a[n][n+1];
+    double x[n];
 
     for (int i=0; i<n; i++) { // recorre los puntos
         for (int j=0; j<n; j++) { // recorre el grado del polinomio
@@ -91,28 +90,17 @@ void exponential_regression(const vector<Points>& points, double user_x) {
     exp_points = points;
     double a[2][3];
     double x[2];
+    double X;
 
     for(auto & exp_point : exp_points)
         exp_point.y = log(exp_point.y);
-/*
-    for (auto & point : exp_points)
-        cout << point.x << ' ' << point.y << endl;
-*/
+
     for (int i=0; i<2; i++) { // recorre los puntos
         for (int j=0; j<2; j++) { // recorre el grado del polinomio
             a[i][j] = x_summatory(i+j, exp_points);
         }
         a[i][2] = y_summatory(i, exp_points);
     }
-
- /*
-    for (int i=0; i<2; i++) {
-        for (int j=0; j<3; j++) {
-            cout << left << setw(numWidth) << setfill(separator) << a[i][j];
-        }
-        cout << endl;
-    }
-    */
 
     double det;
     double a_det;
@@ -126,4 +114,7 @@ void exponential_regression(const vector<Points>& points, double user_x) {
     x[1] = exp(b_det/det);
 
     cout << "y = " << x[0] << '(' << x[1] << ')' << "^x" << endl;
+    X = x[0] * pow(x[1],user_x);
+    cout << "Evaluado en x = " << user_x << ',' << endl;
+    cout << "y(" << user_x << ") = " << X << endl;
 }

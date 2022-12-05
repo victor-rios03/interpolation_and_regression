@@ -51,58 +51,23 @@ int main()
         points.push_back(Points{x, y});
     }
     sort(points.begin(), points.end(), compare);
-    //print_vector(points);
-
-    //cout << ' ' << points.size() << endl;
 
 
-
-    /*do {
-        cout << "Presiona q para salir\n"
-             << "Presiona x para introducir valor de x\n"
-             << "Presiona r para volver a leer el archivo\n"
-             << "Presiona 0 para interpolar de forma lineal\n"
-             << "Presiona 1 para interpolar con el polinomio de lagrange\n"
-             << "Opcion: ";
-        cin >> option;
-
-        switch (option) {
-            case 'q':
-                cout << "Saliendo del programa..." << endl;
-                break;
-            case 'x':
-                cout << "Introduce tu x: " << endl;
-                cin >> user_x;
-                break;
-            case 'r':
-                cout << "Leyendo archivo..." << endl;
-                ist = read_file();
-                points.clear();
-                while (ist >> x >> y) {
-                    points.push_back(Points{x, y});
-                    sort(points.begin(), points.end(), compare);
-                }
-                break;
-            case 'i':
-                cout << "Puntos guardados: " << endl;
-                print_vector(x, y, points);
-                break;
-            case '0':
-                linear_interpolation(points, user_x);
-                break;
-            case '1':
-                lagrange_interpolation(points, user_x);
-                break;
-            default:
-                break;
-        }
-
-    } while (option != 'q');
-     */
-
+    cout << "Punto donde se quieren evaluar los datos" << endl;
     cin >> user_x;
-    //polynomial_regression(points,user_x);
+
+    cout << "Prueba interpolacion lineal" << endl;
+    linear_interpolation(points, user_x);
+
+    cout << "Prueba interpolacion con polinomio de Lagrange" << endl;
+    lagrange_interpolation(points, user_x);
+
+    cout << "Prueba regresion polinomial" << endl;
+    polynomial_regression(points,user_x);
+
+    cout << "Prueba regresion exponencial" << endl;
     exponential_regression(points,user_x);
+
 
 
     return 0;
